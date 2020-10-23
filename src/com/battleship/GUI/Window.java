@@ -5,6 +5,11 @@ import java.awt.*;
 
 public class Window extends JFrame {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4453499308378636423L;
+
     public Window() {
         initUI();
     }
