@@ -10,7 +10,6 @@ public class Application {
 
         EventQueue.invokeLater(() -> {
             Window root = new Window();
-            root.setVisible(true);
         });
     }
 
