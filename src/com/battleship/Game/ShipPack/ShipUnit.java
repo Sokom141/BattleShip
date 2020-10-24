@@ -1,4 +1,4 @@
-package com.battleship.Game.Ship;
+package com.battleship.Game.ShipPack;
 
 class ShipUnit {
 

@@ -1,6 +1,6 @@
-package com.battleship.Game.Board;
+package com.battleship.Game.BoardPack;
 
-import com.battleship.Game.Ship.Ship;
+import com.battleship.Game.ShipPack.Ship;
 
 public class Board {
 
