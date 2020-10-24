@@ -2,8 +2,8 @@ package com.battleship.Game.Ship;
 
 class ShipUnit {
 
-    private int x_axis;
-    private int y_axis;
+    private final int x_axis;
+    private final int y_axis;
     private boolean alive;
 
     /**

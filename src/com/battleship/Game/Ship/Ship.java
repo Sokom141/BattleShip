@@ -3,6 +3,7 @@ package com.battleship.Game.Ship;
 public class Ship {
 
     private final ShipUnit[] unitList;
+    private final int length;
 
     /**
      * Constructor for a generic ship.
@@ -14,6 +15,7 @@ public class Ship {
      */
     public Ship(int x1, int y1, int x2, int y2) {
 
+        length = (x2 - x1 == 0) ? y2 - y1 : x2 - x1;
         unitList = makeUnitList(x1, y1, x2, y2);
     }
 
@@ -34,6 +36,11 @@ public class Ship {
         return false;
     }
 
+    public int getLength() {
+
+        return length;
+    }
+
     /**
      * Private method that construct the internal state of the ship.
      *
@@ -45,14 +52,14 @@ public class Ship {
      */
     private ShipUnit[] makeUnitList(int x1, int y1, int x2, int y2) {
 
-        ShipUnit[] list = new ShipUnit[x1 - x2 + y1 - y2];
+        ShipUnit[] list = new ShipUnit[length];
 
         if (x1 - x2 == 0) { // vertical ship
-            for (int i = 0; i < y2 - y1; i++) {
+            for (int i = 0; i < length; i++) {
                 list[i] = new ShipUnit(x1, y1 + i);
             }
         } else { // horizontal ship
-            for (int i = 0; i < x2 - x1; i++) {
+            for (int i = 0; i < length; i++) {
                 list[i] = new ShipUnit(x1 + i, y1);
             }
         }
