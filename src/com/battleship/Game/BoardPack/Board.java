@@ -1,7 +1,6 @@
 package com.battleship.Game.BoardPack;
 
 import com.battleship.Game.ShipPack.Ship;
-import com.battleship.Game.PlayerPack.Player;
 
 public class Board {
 

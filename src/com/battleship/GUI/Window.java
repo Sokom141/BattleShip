@@ -33,7 +33,7 @@ public class Window implements ActionListener {
         frame = new JFrame();
         frame.setTitle("BattleShip Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setPreferredSize(new Dimension(800, 800));
+        //frame.setPreferredSize(new Dimension(800, 800));
 
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
