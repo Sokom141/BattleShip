@@ -1,12 +1,11 @@
 package com.battleship.Game.BoardPack;
 
 import com.battleship.Game.ShipPack.Ship;
-import com.battleship.Game.PlayerPack.Player;
 
 public class Board {
 
     private Ship[] field;
-    private int ships_on_field = 0;
+    private int shipsOnField = 0;
 
 
     /**
@@ -16,17 +15,17 @@ public class Board {
         field = new Ship[10];
     }
 
-    public void addShip(Ship ship){
-        field[ships_on_field] = ship;
-        ship.setPosition(ships_on_field);
-        ships_on_field++;
+    public void addShip(Ship ship) {
+        field[shipsOnField] = ship;
+        ship.setPosition(shipsOnField);
+        shipsOnField++;
     }
+
     /**
-     * 
      * @param position = the ship's position in the field ship's array
-     * @param ship = the new ship to overwrite on the previous value of field
+     * @param ship     = the new ship to overwrite on the previous value of field
      */
-    public void modifyBoard(int position, Ship ship){ 
+    public void modifyBoard(int position, Ship ship) {
         field[position] = ship;
     }
 

@@ -41,9 +41,11 @@ public class Ship {
         }
         return false;
     }
+
     public ShipUnit getUnit(int n){
         return unitList[n];
     }
+
     public int getLength() {
 
         return length;
@@ -52,6 +54,7 @@ public class Ship {
     public void setPosition(int n){
         position = n;
     }
+
     /**
      * Private method that construct the internal state of the ship.
      *
@@ -61,7 +64,6 @@ public class Ship {
      * @param y2 = the tail y coordinate.
      * @return an array containing the ShipUnit elements.
      */
-    
     private ShipUnit[] makeUnitList(int x1, int y1, int x2, int y2) {
 
         ShipUnit[] list = new ShipUnit[length];
@@ -77,6 +79,7 @@ public class Ship {
         }
         return list;
     }
+
     public void rotateShip(){
 
         if(head_coordinates[0] == tail_coordinates[0]){
