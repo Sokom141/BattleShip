@@ -13,9 +13,10 @@ public class Window implements ActionListener {
     private static final long serialVersionUID = 4453499308378636423L;
     private JFrame frame;
     private JPanel panel;
-    private Button b_start_host;
-    private Button b_start_join;
-    private Button b_exit;
+    private JButton b_start_host;
+    private JButton b_start_join;
+    private JButton b_exit;
+    private JButton avatar_button;
     private JTextField tf_name;
     private ImageIcon user_avatar;
 
@@ -38,23 +39,24 @@ public class Window implements ActionListener {
 
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        panel.setLayout(new GridLayout(0, 2));
+        panel.setLayout(new GridLayout(0, 1));
 
-        b_start_host = new Button("Host");
-        b_start_join = new Button("Join");
-        b_exit = new Button("Exit");
+        b_start_host = new JButton("Host");
+        b_start_join = new JButton("Join");
+        b_exit = new JButton("Exit");
         b_exit.addActionListener(this);
         b_start_host.addActionListener(this);
 
         tf_name = new JTextField("Enter your name");
-        user_avatar = loadImage();
-        JLabel avatar_label = new JLabel(user_avatar);
+        user_avatar = loadImage("src/resources/anonymous.png");
+        avatar_button = new JButton(user_avatar);
+        avatar_button.addActionListener(this);
 
         panel.add(b_start_host);
         panel.add(b_start_join);
         panel.add(b_exit);
         panel.add(tf_name);
-        panel.add(avatar_label);
+        panel.add(avatar_button);
 
 
         frame.add(panel, BorderLayout.CENTER);
@@ -63,9 +65,9 @@ public class Window implements ActionListener {
         frame.setVisible(true);
     }
 
-    private ImageIcon loadImage() {
+    private ImageIcon loadImage(String path) {
 
-        return new ImageIcon("src/resources/anonymous.png");
+        return new ImageIcon(path);
     }
 
     @Override
@@ -73,9 +75,16 @@ public class Window implements ActionListener {
 
         Object source = e.getSource();
         if (source == b_exit) {
+
             System.exit(0);
+
         } else if (source == b_start_host) {
             new GameBoard();
+
+        } else if (source == avatar_button) {
+            SwingUtilities.invokeLater(() -> {
+                ImageChooser imageChooser = new ImageChooser(avatar_button);
+            });
         }
     }
 }
