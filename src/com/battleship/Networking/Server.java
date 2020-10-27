@@ -1,53 +1,29 @@
 package com.battleship.Networking;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
+import java.io.Serializable;
+import java.util.function.Consumer;
 
-public class Server extends Thread {
+public class Server extends NetworkConnection {
 
-    private ServerSocket serverSocket;
+    public int port;
 
-    public Server(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(10000);
+    public Server(Consumer<Serializable> onReceiveCallback, int port) {
+        super(onReceiveCallback);
+        this.port = port;
     }
 
-    public static void main(String[] args) {
-        try {
-            Thread t = new Server(1234);
-            t.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected boolean isServer() {
+        return true;
     }
 
-    public void run() {
-        while (true) {
-            try {
-                System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
-                Socket server = serverSocket.accept();
-
-                System.out.println("Connected to " + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
-
-                System.out.println(in.readUTF());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
-                server.close();
-
-            } catch (SocketTimeoutException s) {
-                System.out.println("The socket has timed out!");
-                break;
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
-
-        }
+    @Override
+    protected String getIP() {
+        return null;
     }
 
+    @Override
+    protected int getPort() {
+        return port;
+    }
 }

@@ -1,10 +1,36 @@
 package com.battleship.Networking;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.Serializable;
+import java.util.function.Consumer;
 
-public class Client {
+public class Client extends NetworkConnection {
 
+    private String ip;
+    private int port;
+
+    public Client(Consumer<Serializable> onReceiveCallback, String ip, int port) {
+        super(onReceiveCallback);
+        this.ip = ip;
+        this.port = port;
+    }
+
+    @Override
+    protected boolean isServer() {
+        return false;
+    }
+
+    @Override
+    protected String getIP() {
+        return ip;
+    }
+
+    @Override
+    protected int getPort() {
+        return port;
+    }
+
+
+    /*
     private String serverIp;
     private int serverPort;
 
@@ -14,7 +40,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Client c = new Client("localhost", 1234);
+        Client c = new Client("79.45.239.1", 6969);
         c.run();
     }
 
@@ -38,5 +64,5 @@ public class Client {
             e.printStackTrace();
         }
     }
-
+    */
 }

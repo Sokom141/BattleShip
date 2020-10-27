@@ -1,5 +1,7 @@
 package com.battleship.GUI;
 
+import com.battleship.Networking.NetworkConnection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ public class Window implements ActionListener {
     private JButton avatar_button;
     private JTextField tf_name;
     private ImageIcon user_avatar;
+
+    private NetworkConnection connection;
 
     /**
      * Constructor of the Window class
@@ -46,6 +50,7 @@ public class Window implements ActionListener {
         b_exit = new JButton("Exit");
         b_exit.addActionListener(this);
         b_start_host.addActionListener(this);
+        b_start_join.addActionListener(this);
 
         tf_name = new JTextField("Enter your name");
         user_avatar = loadImage("src/resources/anonymous.png");
@@ -79,7 +84,17 @@ public class Window implements ActionListener {
             System.exit(0);
 
         } else if (source == b_start_host) {
-            new GameBoard();
+            SwingUtilities.invokeLater(() -> {
+                GameBoard gb = new GameBoard();
+                gb.createServer();
+            });
+
+
+        } else if (source == b_start_join) {
+            SwingUtilities.invokeLater(() -> {
+                GameBoard gb = new GameBoard();
+                gb.createClient("127.0.0.1", 6969);
+            });
 
         } else if (source == avatar_button) {
             SwingUtilities.invokeLater(() -> {
