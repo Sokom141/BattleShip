@@ -15,6 +15,7 @@ public class GameBoard {
     private JPanel mainPanel;
     private JPanel chatPanel;
     private JPanel gameBoardPanel;
+    private JScrollPane scrollPane;
     private JTextArea messages = new JTextArea();
     private JTextField input = new JTextField();
 
@@ -39,11 +40,13 @@ public class GameBoard {
 
         chatPanel = new JPanel();
         chatPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        chatPanel.setLayout(new GridLayout(2, 0));
-        messages.setMinimumSize(new Dimension(500, 900));
-
+        chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
+        messages.setMaximumSize(new Dimension(500, 900));
+        input.setMaximumSize(new Dimension(500, 100));
         input.addActionListener(buttonHandler);
-        chatPanel.add(messages);
+
+        scrollPane = new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        chatPanel.add(scrollPane);
         chatPanel.add(input);
 
 
