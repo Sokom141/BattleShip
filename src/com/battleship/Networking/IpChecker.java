@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-class IpChecker {
+public class IpChecker {
 
     /**
      * Get the public IP for the server to share
