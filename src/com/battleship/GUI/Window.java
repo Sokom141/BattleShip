@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Window implements ActionListener {
+public class Window {
 
     /**
      *
@@ -19,11 +19,13 @@ public class Window implements ActionListener {
     private JButton b_start_join;
     private JButton b_exit;
     private JButton b_settings;
-    // private JButton avatar_button;
-    // private JTextField tf_name;
-    // private ImageIcon user_avatar;
-
+    protected String ip;
+    protected int port;
     private NetworkConnection connection;
+    private JLabel gameName;
+    private EventHandler eventHandler = new EventHandler();
+    private Window ref = this;
+
 
     /**
      * Constructor of the Window class
@@ -37,78 +39,53 @@ public class Window implements ActionListener {
      */
     private void initUI() {
 
-        frame = new JFrame();
-        frame.setTitle("BattleShip Game");
+        frame = new JFrame("BattleShip Game");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setPreferredSize(new Dimension(800, 800));
 
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        panel.setLayout(new GridLayout(0, 1));
-
-        b_start_host = new JButton("Host");
-        b_start_join = new JButton("Join");
-        b_exit = new JButton("Exit");
-        b_settings = new JButton("Settings");
-        b_exit.addActionListener(this);
-        b_start_host.addActionListener(this);
-        b_start_join.addActionListener(this);
-        b_settings.addActionListener(this);
-
-/*
-        tf_name = new JTextField("Enter your name");
-        user_avatar = loadImage("src/resources/anonymous.png");
-        avatar_button = new JButton(user_avatar);
-        avatar_button.addActionListener(this);
-*/
-
-        panel.add(b_start_host);
-        panel.add(b_start_join);
-        panel.add(b_settings);
-        panel.add(b_exit);
-        //panel.add(tf_name);
-        //panel.add(avatar_button);
-
+        b_exit.addActionListener(eventHandler);
+        b_start_host.addActionListener(eventHandler);
+        b_start_join.addActionListener(eventHandler);
+        b_settings.addActionListener(eventHandler);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-/*
-    private ImageIcon loadImage(String path) {
 
-        return new ImageIcon(path);
-    }
-*/
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    /**
+     * Private class to handle events
+     */
+    private class EventHandler implements ActionListener {
 
-        Object source = e.getSource();
-        if (source == b_exit) {
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
-            System.exit(0);
+            Object source = e.getSource();
+            if (source == b_exit) {
 
-        } else if (source == b_start_host) {
-            SwingUtilities.invokeLater(() -> {
-                GameBoard gb = new GameBoard();
-                gb.createServer(6969);
-            });
+                System.exit(0);
+
+            } else if (source == b_start_host) {
+                SwingUtilities.invokeLater(() -> {
+                    ServerDialog serverDialog = new ServerDialog(ref);
+
+                    GameBoard gb = new GameBoard();
+                    gb.createServer(port);
+                });
 
 
-        } else if (source == b_start_join) {
-            SwingUtilities.invokeLater(() -> {
-                GameBoard gb = new GameBoard();
-                gb.createClient("127.0.0.1", 6969);
-            });
-        } else if ( source == b_settings) {
-            new Settings();
+            } else if (source == b_start_join) {
+                SwingUtilities.invokeLater(() -> {
+                    ClientDialog clientDialog = new ClientDialog(ref);
+
+                    GameBoard gb = new GameBoard();
+                    gb.createClient(ip, port);
+                });
+            } else if (source == b_settings) {
+                new Settings();
+            }
         }
-/*
-        } else if (source == avatar_button) {
-            SwingUtilities.invokeLater(() -> {
-                ImageChooser imageChooser = new ImageChooser(avatar_button);
-            });
-        }*/
     }
 }
