@@ -9,35 +9,68 @@ import java.util.function.Consumer;
 
 public abstract class NetworkConnection {
 
-    private ConnectionThread connectionThread = new ConnectionThread();
-    private Consumer<Serializable> onReceiveCallback;
+    private final ConnectionThread connectionThread = new ConnectionThread();
+    private final Consumer<Serializable> onReceiveCallback;
 
+    /**
+     * Constructor of the class
+     *
+     * @param onReceiveCallback function called when a message is received
+     */
     public NetworkConnection(Consumer<Serializable> onReceiveCallback) {
         this.onReceiveCallback = onReceiveCallback;
         connectionThread.setDaemon(true);
     }
 
+    /**
+     * Starts the connection
+     *
+     * @throws Exception connection failed
+     */
     public void startConnection() throws Exception {
 
         connectionThread.start();
     }
 
+    /**
+     * Sends a serializable object
+     *
+     * @param data data to write on the ObjectOutputStream
+     * @throws Exception failed to send data
+     */
     public void send(Serializable data) throws Exception {
 
         connectionThread.out.writeObject(data);
     }
 
+    /**
+     * Close the connection
+     *
+     * @throws Exception connection failed
+     */
     public void closeConnection() throws Exception {
 
         connectionThread.socket.close();
     }
 
+    /**
+     * @return true if the class is a server, true otherwise
+     */
     protected abstract boolean isServer();
 
+    /**
+     * @return a String containing the IP
+     */
     protected abstract String getIP();
 
+    /**
+     * @return an int specifying the Port
+     */
     protected abstract int getPort();
 
+    /**
+     * Private class to handle the connection, extends Thread
+     */
     private class ConnectionThread extends Thread {
 
         private Socket socket;

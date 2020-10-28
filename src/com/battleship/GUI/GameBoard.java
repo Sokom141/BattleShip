@@ -11,48 +11,33 @@ import java.awt.event.ActionListener;
 
 public class GameBoard {
 
-    private JFrame frame;
-    private JPanel mainPanel;
+    private final JFrame frame;
+    private final JPanel mainPanel;
     private JPanel chatPanel;
     private JPanel gameBoardPanel;
     private JScrollPane scrollPane;
-    private JTextArea messages = new JTextArea();
-    private JTextField input = new JTextField();
+    private final JTextArea messages = new JTextArea();
+    private final JTextField input = new JTextField();
 
     private NetworkConnection connection;
 
-    private JButton[][] positions = new JButton[10][10];
-    private ButtonHandler buttonHandler = new ButtonHandler();
+    private final ButtonHandler buttonHandler = new ButtonHandler();
+    private final JButton[][] positions = new JButton[10][10];
 
 
     public GameBoard() {
 
         frame = new JFrame("Battleship Game");
 
-
         mainPanel = new JPanel();
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.setLayout(new GridLayout(0, 2));
 
-        gameBoardPanel = new JPanel();
-        gameBoardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
-        gameBoardPanel.setLayout(new GridLayout(10, 10));
-
-        chatPanel = new JPanel();
-        chatPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
-        messages.setMaximumSize(new Dimension(500, 900));
-        input.setMaximumSize(new Dimension(500, 100));
-        input.addActionListener(buttonHandler);
-
-        scrollPane = new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        chatPanel.add(scrollPane);
-        chatPanel.add(input);
-
+        this.initBoard();
+        this.initChat();
 
         mainPanel.add(gameBoardPanel);
         mainPanel.add(chatPanel);
-
 
         this.setButtons();
 
@@ -64,6 +49,35 @@ public class GameBoard {
 
     }
 
+    /**
+     * Initializes the board components
+     */
+    private void initBoard() {
+        gameBoardPanel = new JPanel();
+        gameBoardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
+        gameBoardPanel.setLayout(new GridLayout(10, 10));
+    }
+
+    /**
+     * Initializes the chat components
+     */
+    private void initChat() {
+        chatPanel = new JPanel();
+        chatPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
+        messages.setMaximumSize(new Dimension(500, 900));
+        input.setMaximumSize(new Dimension(500, 100));
+        input.addActionListener(buttonHandler);
+
+        scrollPane = new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        chatPanel.add(scrollPane);
+        chatPanel.add(input);
+    }
+
+    /**
+     * Set the buttons of the game board.
+     * Every ShipUnit correspond to one button
+     */
     private void setButtons() {
 
         for (int i = 0; i < 10; i++) {
@@ -78,8 +92,11 @@ public class GameBoard {
         }
     }
 
-    public void createServer() {
-        connection = new Server(data -> SwingUtilities.invokeLater(() -> messages.append(data.toString() + "\n")), 6969);
+    /**
+     * Called if the Player is the server
+     */
+    public void createServer(int port) {
+        connection = new Server(data -> SwingUtilities.invokeLater(() -> messages.append(data.toString() + "\n")), port);
         try {
             connection.startConnection();
         } catch (Exception e) {
@@ -87,6 +104,12 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Called if the Player is the client
+     *
+     * @param ip   the IP of the server to connect
+     * @param port the port of the server to connect
+     */
     public void createClient(String ip, int port) {
         connection = new Client(data -> SwingUtilities.invokeLater(() -> messages.append(data.toString() + "\n")), ip, port);
         try {
@@ -97,6 +120,9 @@ public class GameBoard {
     }
 
 
+    /**
+     * Private class to handle buttons.
+     */
     private class ButtonHandler implements ActionListener {
 
         @Override
@@ -124,6 +150,11 @@ public class GameBoard {
             }
         }
 
+        /**
+         * Test print function to see the chosen position to attack. Should be removed.
+         *
+         * @param src Button source
+         */
         private void testPrint(Object src) {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {

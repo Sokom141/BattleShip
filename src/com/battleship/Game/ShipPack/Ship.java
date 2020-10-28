@@ -42,16 +42,23 @@ public class Ship {
         return false;
     }
 
-    public ShipUnit getUnit(int n){
+    /**
+     * @param n the index of the ShipUnit
+     * @return the ShipUnit chosen
+     */
+    public ShipUnit getUnit(int n) {
         return unitList[n];
     }
 
+    /**
+     * @return the length of the Ship
+     */
     public int getLength() {
 
         return length;
     }
 
-    public void setPosition(int n){
+    public void setPosition(int n) {
         position = n;
     }
 
@@ -80,9 +87,12 @@ public class Ship {
         return list;
     }
 
-    public void rotateShip(){
+    /**
+     * Method to rotate the Ship on the board
+     */
+    public void rotateShip() {
 
-        if(head_coordinates[0] == tail_coordinates[0]){
+        if (head_coordinates[0] == tail_coordinates[0]) {
             tail_coordinates[0] += this.length;
         } else {
             tail_coordinates[1] += this.length;
