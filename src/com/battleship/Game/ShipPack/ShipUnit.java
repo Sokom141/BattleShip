@@ -2,8 +2,8 @@ package com.battleship.Game.ShipPack;
 
 class ShipUnit {
 
-    private final int x_axis;
-    private final int y_axis;
+    private int xAxis;
+    private int yAxis;
     private boolean alive;
 
     /**
@@ -13,8 +13,8 @@ class ShipUnit {
      * @param j = coordinate on y axis
      */
     public ShipUnit(int i, int j) {
-        x_axis = i;
-        y_axis = j;
+        xAxis = i;
+        yAxis = j;
         alive = true;
     }
 
@@ -29,7 +29,19 @@ class ShipUnit {
      * @return x axis and y axis
      */
     public int[] coordinates() {
-        return new int[]{x_axis, y_axis};
+        return new int[]{xAxis, yAxis};
+    }
+
+    public void setX(int n) {
+        xAxis = n;
+    }
+
+    public void setY(int n) {
+        yAxis = n;
+    }
+
+    public void destroy() {
+        alive = false;
     }
 
 }

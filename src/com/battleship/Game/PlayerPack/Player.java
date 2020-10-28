@@ -1,12 +1,12 @@
 package com.battleship.Game.PlayerPack;
 
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 public class Player {
 
     private final String name;
     private final boolean host;
-    private final BufferedImage avatar;
+    private final ImageIcon avatar;
 
     /**
      * Constructor for the Player class
@@ -15,7 +15,7 @@ public class Player {
      * @param is_hosting True if the Player is the server
      * @param image      The user image
      */
-    public Player(String user_name, boolean is_hosting, BufferedImage image) {
+    public Player(String user_name, boolean is_hosting, ImageIcon image) {
         name = user_name;
         host = is_hosting;
         avatar = image;
@@ -38,7 +38,7 @@ public class Player {
     /**
      * @return the avatar image of the Player
      */
-    public BufferedImage getAvatar() {
+    public ImageIcon getAvatar() {
         return avatar;
     }
 }
