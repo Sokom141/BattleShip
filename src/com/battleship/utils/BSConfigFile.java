@@ -1,6 +1,9 @@
 package com.battleship.utils;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,22 +26,16 @@ public class BSConfigFile {
            value = props.getProperty(key);
            return value;
 
-       } catch(FileNotFoundException ex){
+       } catch (Exception ex) {
            newFile();
            value = readFile(key);
-       } catch(IOException ex) {
-           newFile();
-           value = readFile(key);
-       }/* catch(NullPointerException ex){
-           newFile();
-           value = readFile(key);
-       }*/
+       }
        return value;
    }
    public static void newFile() {
 
        Properties props = new Properties();
-       props.setProperty("Name", "CLaudio");
+       props.setProperty("Name", "UserName");
        props.setProperty("Resolution_Width", "1000");
        props.setProperty("Resolution_Height", "500");
        props.setProperty("Color", "BLUE");
