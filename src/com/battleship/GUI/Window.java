@@ -18,9 +18,10 @@ public class Window implements ActionListener {
     private JButton b_start_host;
     private JButton b_start_join;
     private JButton b_exit;
-    private JButton avatar_button;
-    private JTextField tf_name;
-    private ImageIcon user_avatar;
+    private JButton b_settings;
+    // private JButton avatar_button;
+    // private JTextField tf_name;
+    // private ImageIcon user_avatar;
 
     private NetworkConnection connection;
 
@@ -48,20 +49,25 @@ public class Window implements ActionListener {
         b_start_host = new JButton("Host");
         b_start_join = new JButton("Join");
         b_exit = new JButton("Exit");
+        b_settings = new JButton("Settings");
         b_exit.addActionListener(this);
         b_start_host.addActionListener(this);
         b_start_join.addActionListener(this);
+        b_settings.addActionListener(this);
 
+/*
         tf_name = new JTextField("Enter your name");
         user_avatar = loadImage("src/resources/anonymous.png");
         avatar_button = new JButton(user_avatar);
         avatar_button.addActionListener(this);
+*/
 
         panel.add(b_start_host);
         panel.add(b_start_join);
+        panel.add(b_settings);
         panel.add(b_exit);
-        panel.add(tf_name);
-        panel.add(avatar_button);
+        //panel.add(tf_name);
+        //panel.add(avatar_button);
 
 
         frame.add(panel, BorderLayout.CENTER);
@@ -69,12 +75,12 @@ public class Window implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
+/*
     private ImageIcon loadImage(String path) {
 
         return new ImageIcon(path);
     }
-
+*/
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -95,11 +101,14 @@ public class Window implements ActionListener {
                 GameBoard gb = new GameBoard();
                 gb.createClient("127.0.0.1", 6969);
             });
-
+        } else if ( source == b_settings) {
+            new Settings();
+        }
+/*
         } else if (source == avatar_button) {
             SwingUtilities.invokeLater(() -> {
                 ImageChooser imageChooser = new ImageChooser(avatar_button);
             });
-        }
+        }*/
     }
 }
