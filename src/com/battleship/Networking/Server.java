@@ -19,7 +19,12 @@ public class Server extends NetworkConnection {
 
     @Override
     protected String getIP() {
-        return null;
+        try {
+            return IpChecker.getIp();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

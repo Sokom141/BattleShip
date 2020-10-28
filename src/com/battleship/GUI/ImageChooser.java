@@ -14,6 +14,11 @@ class ImageChooser extends JPanel {
     File file;
 
 
+    /**
+     * Constructor for the ImageChooser JPanel
+     *
+     * @param userAvatarButton the JButton to update
+     */
     public ImageChooser(JButton userAvatarButton) {
 
         super(new BorderLayout());
@@ -26,14 +31,7 @@ class ImageChooser extends JPanel {
         fileChooser = new JFileChooser();
         buttonHandler = new ButtonHandler();
 
-        openButton = new JButton("Open an Image..");
-        openButton.addActionListener(buttonHandler);
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(openButton);
-
-
-        add(buttonPanel, BorderLayout.PAGE_START);
+        this.initButtons();
 
         frame.add(this);
         frame.pack();
@@ -41,25 +39,24 @@ class ImageChooser extends JPanel {
         frame.setVisible(true);
     }
 
+    private void initButtons() {
+        openButton = new JButton("Open an Image..");
+        openButton.addActionListener(buttonHandler);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(openButton);
+        add(buttonPanel, BorderLayout.PAGE_START);
+    }
+
     private void updateAvatar(File file) {
         ImageIcon ii = new ImageIcon(file.getPath());
         avatarButton.setIcon(ii);
     }
 
-    /*
-        public static void createAndShowGUI(ImageIcon avatar){
-
-            JFrame frame = new JFrame("Image Chooser");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            frame.add(new ImageChooser());
-
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        }
-    */
-    class ButtonHandler implements ActionListener {
+    /**
+     * Private class to handle buttons.
+     */
+    private class ButtonHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {

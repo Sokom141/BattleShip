@@ -86,7 +86,7 @@ public class Window implements ActionListener {
         } else if (source == b_start_host) {
             SwingUtilities.invokeLater(() -> {
                 GameBoard gb = new GameBoard();
-                gb.createServer();
+                gb.createServer(6969);
             });
 
 

@@ -15,6 +15,11 @@ public class Board {
         field = new Ship[10];
     }
 
+    /**
+     * Add the Ship to the board
+     *
+     * @param ship a Ship object
+     */
     public void addShip(Ship ship) {
         field[shipsOnField] = ship;
         ship.setPosition(shipsOnField);
@@ -29,21 +34,5 @@ public class Board {
         field[position] = ship;
     }
 
-/*
-    private ShipUnit[] makeUnitList(int x1, int y1, int x2, int y2) {
-
-        ShipUnit[] list = new ShipUnit[length];
-
-        if (x1 - x2 == 0) { // vertical ship
-            for (int i = 0; i < length; i++) {
-                list[i] = new ShipUnit(x1, y1 + i);
-            }
-        } else {            // horizontal ship
-            for (int i = 0; i < length; i++) {
-                list[i] = new ShipUnit(x1 + i, y1);
-            }
-        }
-        return list;
-    }
-    */
+    // TODO: Read the contents of the array "field"
 }

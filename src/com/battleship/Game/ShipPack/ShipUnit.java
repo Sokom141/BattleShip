@@ -32,14 +32,27 @@ class ShipUnit {
         return new int[]{xAxis, yAxis};
     }
 
+    /**
+     * Set the x coordinate
+     *
+     * @param n an integer between 0 and 9
+     */
     public void setX(int n) {
         xAxis = n;
     }
 
+    /**
+     * Set the y coordinate
+     *
+     * @param n an integer between 0 and 9
+     */
     public void setY(int n) {
         yAxis = n;
     }
 
+    /**
+     * Destroy the ShipUnit component
+     */
     public void destroy() {
         alive = false;
     }
