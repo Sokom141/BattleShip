@@ -11,13 +11,12 @@ import java.awt.event.ActionListener;
 
 public class GameBoard {
 
-    private final JFrame frame;
-    private final JPanel mainPanel;
+    private JPanel mainPanel;
     private JPanel chatPanel;
     private JPanel gameBoardPanel;
     private JScrollPane scrollPane;
-    private final JTextArea messages = new JTextArea();
-    private final JTextField input = new JTextField();
+    private JTextArea messages;
+    private JTextField input;
 
     private NetworkConnection connection;
 
@@ -27,18 +26,9 @@ public class GameBoard {
 
     public GameBoard() {
 
-        frame = new JFrame("Battleship Game");
+        JFrame frame = new JFrame("Battleship Game");
 
-        mainPanel = new JPanel();
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        mainPanel.setLayout(new GridLayout(0, 2));
-
-        this.initBoard();
-        this.initChat();
-
-        mainPanel.add(gameBoardPanel);
-        mainPanel.add(chatPanel);
-
+        input.addActionListener(buttonHandler);
         this.setButtons();
 
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -49,30 +39,6 @@ public class GameBoard {
 
     }
 
-    /**
-     * Initializes the board components
-     */
-    private void initBoard() {
-        gameBoardPanel = new JPanel();
-        gameBoardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
-        gameBoardPanel.setLayout(new GridLayout(10, 10));
-    }
-
-    /**
-     * Initializes the chat components
-     */
-    private void initChat() {
-        chatPanel = new JPanel();
-        chatPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
-        messages.setMaximumSize(new Dimension(500, 900));
-        input.setMaximumSize(new Dimension(500, 100));
-        input.addActionListener(buttonHandler);
-
-        scrollPane = new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        chatPanel.add(scrollPane);
-        chatPanel.add(input);
-    }
 
     /**
      * Set the buttons of the game board.
@@ -117,6 +83,11 @@ public class GameBoard {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void createUIComponents() {
+        gameBoardPanel = new JPanel();
+        gameBoardPanel.setLayout(new GridLayout(10, 10));
     }
 
 
