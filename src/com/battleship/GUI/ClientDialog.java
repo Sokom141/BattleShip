@@ -47,7 +47,7 @@ public class ClientDialog extends JDialog {
 
     private void onOK() {
 
-        ref.ip = portField.getText();
+        ref.ip = ipField.getText();
         ref.port = Integer.parseInt(portField.getText());
 
         dispose();
