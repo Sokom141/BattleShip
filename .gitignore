@@ -24,3 +24,6 @@ hs_err_pid*
 
 # IntelliJ configs
 .idea/
+
+# Game settings
+config.properties
