@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+
+import static com.battleship.utils.BSConfigFile.readFile;
+import static com.battleship.utils.BSConfigFile.readProperties;
 
 public class Settings implements ActionListener{
 
@@ -24,12 +28,14 @@ public class Settings implements ActionListener{
     public File configFile;
     private JButton bSave;
     private ImageIcon user_avatar;
+    private HashMap<String, Color> map = new HashMap<>();
+    private String[] colors;
 
-    public Settings(){
+    public Settings() throws IOException {
         initUI();
     }
 
-    public void initUI() {
+    public void initUI() throws IOException {
 
         frame = new JFrame();
         frame.setTitle("Settings");
@@ -39,9 +45,10 @@ public class Settings implements ActionListener{
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         panel.setLayout(new GridLayout(0, 1));
 
-        String[] colorsName = new String[]{"BLUE", "BLACK", "CYAN",
-                "GREEN", "MAGENTA", "ORANGE", "PINK", "RED", "YELLOW"};
-        bSetColors = new JComboBox<>(colorsName);
+        CreateColorPalette.initHashMap(map);
+        colors = map.keySet().toArray(new String[map.size()]);
+        bSetColors = new JComboBox<String>(colors);
+        bSetColors.setSelectedItem(readFile("Color"));
         frame.add(bSetColors);
 
         bExit = new JButton("Exit");
@@ -54,13 +61,13 @@ public class Settings implements ActionListener{
         bSave.addActionListener(this);
 
         try {
-            tfNick = new JTextField(BSConfigFile.readFile("Name"));
+            tfNick = new JTextField(readFile("Name"));
         } catch (IOException ex) {
             tfNick = new JTextField("Enter your Nickname");
         }
         try {
-            tfWidth = new JTextField(BSConfigFile.readFile("Resolution_Width"));
-            tfHeight = new JTextField(BSConfigFile.readFile("Resolution_Height"));
+            tfWidth = new JTextField(readFile("Resolution_Width"));
+            tfHeight = new JTextField(readFile("Resolution_Height"));
         } catch (IOException ex) {
             tfWidth = new JTextField("1000");
             tfHeight = new JTextField("500");
