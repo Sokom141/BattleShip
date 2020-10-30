@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Window {
 
@@ -84,7 +85,11 @@ public class Window {
                     gb.createClient(ip, port);
                 });
             } else if (source == b_settings) {
-                new Settings();
+                try{
+                    new Settings();
+                } catch(IOException ex){
+
+                }
             }
         }
     }

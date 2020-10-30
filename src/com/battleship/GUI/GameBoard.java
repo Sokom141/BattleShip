@@ -131,7 +131,7 @@ public class GameBoard {
                 for (int j = 0; j < 10; j++) {
                     if (src == positions[i][j]) {
                         System.out.println("Chosen position to attack: " + i + ", " + j);
-                        positions[i][j].setBackground(Color.BLUE);
+                        positions[i][j].setBackground(Color.RED);
                     }
                 }
             }
