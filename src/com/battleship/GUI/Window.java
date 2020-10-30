@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Window {
 
@@ -39,13 +40,13 @@ public class Window {
 
         JFrame frame = new JFrame("BattleShip Game");
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         b_exit.addActionListener(eventHandler);
         b_start_host.addActionListener(eventHandler);
         b_start_join.addActionListener(eventHandler);
         b_settings.addActionListener(eventHandler);
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -82,8 +83,8 @@ public class Window {
                     gb.createClient(ip, port);
                 });
             } else if (source == b_settings) {
-                new Settings();
+                    new Settings();
+                }
             }
         }
     }
-}

@@ -1,5 +1,6 @@
 package com.battleship.utils;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -14,23 +15,6 @@ public class BSConfigFile {
     public static Path bsConfigFile;
 
     // TODO: write JavaDoc
-    public static String readFile(String key) {
-
-        String value;
-
-        try {
-            bsConfigFile = Paths.get("config.properties");
-            Reader reader = Files.newBufferedReader(bsConfigFile);
-            props.load(reader);
-            reader.close();
-            value = props.getProperty(key);
-        } catch (IOException e) {
-            newFile();
-            value = readFile(key);
-        }
-
-        return value;
-    }
 
     public static void newFile() {
 
@@ -53,10 +37,22 @@ public class BSConfigFile {
         }
     }
 
-    // TODO: Compare this one and line #26
-    public static String readProperties(String property) {
+    public static String readProperties(String key) {
 
-        return props.getProperty(property);
+        String value;
+
+        try {
+            bsConfigFile = Paths.get("config.properties");
+            Reader reader = Files.newBufferedReader(bsConfigFile);
+            props.load(reader);
+            reader.close();
+            value = props.getProperty(key);
+        } catch (IOException e) {
+            newFile();
+            value = props.getProperty(key);
+        }
+
+        return value;
     }
 
     public static void modifyFile(String key, String value) {
@@ -69,5 +65,21 @@ public class BSConfigFile {
         } catch (IOException | NullPointerException ex) {
             newFile();
         }
+    }
+    public static Color manageColors(String colorString) {
+        return switch (colorString) {
+            case "CYAN" -> Color.CYAN;
+            case "GREEN" -> Color.GREEN;
+            case "MAGENTA" -> Color.MAGENTA;
+            case "ORANGE" -> Color.ORANGE;
+            case "BLACK" -> Color.BLACK;
+            default -> Color.BLUE;
+        };
+    }
+    public static void updateConfiguration(String newName,String setColor, String resolutionWidth, String resolutionHeight){
+        BSConfigFile.modifyFile("Name", newName);
+        BSConfigFile.modifyFile("Color", setColor);
+        BSConfigFile.modifyFile("Resolution_Width", resolutionWidth);
+        BSConfigFile.modifyFile("Resolution_Height", resolutionHeight);
     }
 }
