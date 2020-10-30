@@ -40,13 +40,13 @@ public class Window {
 
         JFrame frame = new JFrame("BattleShip Game");
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         b_exit.addActionListener(eventHandler);
         b_start_host.addActionListener(eventHandler);
         b_start_join.addActionListener(eventHandler);
         b_settings.addActionListener(eventHandler);
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -83,12 +83,8 @@ public class Window {
                     gb.createClient(ip, port);
                 });
             } else if (source == b_settings) {
-                try{
                     new Settings();
-                } catch(IOException ex){
-
                 }
             }
         }
     }
-}
