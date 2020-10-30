@@ -1,6 +1,5 @@
 package com.battleship.utils;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -11,62 +10,64 @@ import java.util.Properties;
 
 public class BSConfigFile {
 
-   private static Properties props;
-   public static Path bsConfigFile;
+    private static final Properties props = new Properties();
+    public static Path bsConfigFile;
 
-   public static String readFile(String key) throws IOException {
-       String value;
-       try {
-           props = new Properties();
-           bsConfigFile = Paths.get("config.properties");
-           Reader reader = Files.newBufferedReader(bsConfigFile);
-           props.load(reader);
-           reader.close();
+    // TODO: write JavaDoc
+    public static String readFile(String key) {
 
-           value = props.getProperty(key);
-           return value;
+        String value;
 
-       } catch (Exception ex) {
-           newFile();
-           value = readFile(key);
-       }
-       return value;
-   }
-   public static void newFile() {
+        try {
+            bsConfigFile = Paths.get("config.properties");
+            Reader reader = Files.newBufferedReader(bsConfigFile);
+            props.load(reader);
+            reader.close();
+            value = props.getProperty(key);
+        } catch (IOException e) {
+            newFile();
+            value = readFile(key);
+        }
 
-       Properties props = new Properties();
-       props.setProperty("Name", "UserName");
-       props.setProperty("Resolution_Width", "1000");
-       props.setProperty("Resolution_Height", "500");
-       props.setProperty("Color", "BLUE");
+        return value;
+    }
 
-       Path PropertyFile = Paths.get("config.properties");
-       try{
-           Writer PropWriter = Files.newBufferedWriter(PropertyFile);
-           props.store(PropWriter,"Settings");
-           PropWriter.close();
-       }
-       catch(IOException Ex){
-           System.out.println("IO Exception : "+ Ex.getMessage());
-       }
-   }
+    public static void newFile() {
 
-   public static String readProperties(String property){
+        Properties props = new Properties();
 
-           return props.getProperty(property);
+        props.setProperty("Name", "UserName");
+        props.setProperty("Avatar_Path", "src/resources/anonymous.png");
+        props.setProperty("Resolution_Width", "1000");
+        props.setProperty("Resolution_Height", "500");
+        props.setProperty("Color", "BLUE");
 
-   }
-   
-   public static void modifyFile(String key, String value) throws IOException {
-       try {
+        Path propertyFile = Paths.get("config.properties");
 
-           props.setProperty(key, value);
-           Writer writer = Files.newBufferedWriter(bsConfigFile);
-           props.store(writer, "Settings");
-           writer.close();
-       }
-       catch (FileNotFoundException ex){
-           newFile();
-       }
-   }
+        try {
+            Writer propWriter = Files.newBufferedWriter(propertyFile);
+            props.store(propWriter, "Settings");
+            propWriter.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    // TODO: Compare this one and line #26
+    public static String readProperties(String property) {
+
+        return props.getProperty(property);
+    }
+
+    public static void modifyFile(String key, String value) {
+
+        try {
+            props.setProperty(key, value);
+            Writer writer = Files.newBufferedWriter(bsConfigFile);
+            props.store(writer, "Settings");
+            writer.close();
+        } catch (IOException | NullPointerException ex) {
+            newFile();
+        }
+    }
 }

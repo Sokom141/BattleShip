@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class ServerDialog extends JDialog {
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -18,6 +19,7 @@ public class ServerDialog extends JDialog {
     private JLabel portLabel;
     private JLabel publicIP;
     private JPanel buttonsPanel;
+    private JCheckBox localGameCheckBox;
 
     private Window ref;
 

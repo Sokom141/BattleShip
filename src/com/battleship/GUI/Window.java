@@ -14,19 +14,17 @@ public class Window {
      *
      */
     private static final long serialVersionUID = 4453499308378636423L;
-    private JFrame frame;
     private JPanel panel;
     private JButton b_start_host;
     private JButton b_start_join;
     private JButton b_exit;
     private JButton b_settings;
+    private final EventHandler eventHandler = new EventHandler();
+    private final Window ref = this;
+    private JLabel gameName;
     protected String ip;
     protected int port;
     private NetworkConnection connection;
-    private JLabel gameName;
-    private EventHandler eventHandler = new EventHandler();
-    private Window ref = this;
-
 
     /**
      * Constructor of the Window class
@@ -40,7 +38,7 @@ public class Window {
      */
     private void initUI() {
 
-        frame = new JFrame("BattleShip Game");
+        JFrame frame = new JFrame("BattleShip Game");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
