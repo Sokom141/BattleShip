@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 // TODO: Maybe it's better to create an inner class that implements ActionListener
 public class Settings implements ActionListener {
 
+    private JFrame frame;
     private JPanel panel;
     private JTextField tfNick;
     private JButton avatar_button;
@@ -31,7 +32,7 @@ public class Settings implements ActionListener {
 
     public void initUI() {
 
-        JFrame frame = new JFrame("Settings");
+        frame = new JFrame("Settings");
 
         avatar_button.addActionListener(this);
         bExit.addActionListener(this);
@@ -52,9 +53,8 @@ public class Settings implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-
         if (source == bExit) {
-            System.exit(0);
+            frame.dispose();
         } else if (source == avatar_button) {
             SwingUtilities.invokeLater(() -> new ImageChooser(avatar_button));
         } else if (source == bSave) {
@@ -62,8 +62,9 @@ public class Settings implements ActionListener {
             String setColor = (String) bSetColors.getSelectedItem();
             String resolutionWidth = tfWidth.getText();
             String resolutionHeight = tfHeight.getText();
+            BSConfigFile.updateConfiguration(newName, setColor, resolutionWidth, resolutionHeight);
 
-            BSConfigFile.updateConfiguration(newName, setColor, resolutionWidth,resolutionHeight);
+            frame.dispose();
         }
     }
 
