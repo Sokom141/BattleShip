@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class ClientDialog extends JDialog {
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -20,6 +21,7 @@ public class ClientDialog extends JDialog {
     private Window ref;
 
     public ClientDialog(Window parentWindow) {
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
