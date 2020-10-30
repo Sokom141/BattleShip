@@ -1,4 +1,4 @@
-package com.battleship.Networking;
+package com.battleship.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
