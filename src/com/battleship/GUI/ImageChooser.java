@@ -1,5 +1,7 @@
 package com.battleship.GUI;
 
+import com.battleship.utils.BSConfigFile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,6 +55,9 @@ class ImageChooser extends JPanel {
         add(buttonPanel, BorderLayout.PAGE_START);
     }
 
+    private void updateAvatarPath(String path){
+        BSConfigFile.modifyFile("Avatar_Path", path);
+    }
     private void updateAvatar(File file) {
         ImageIcon ii = new ImageIcon(file.getPath());
         avatarButton.setIcon(ii);
@@ -73,6 +78,7 @@ class ImageChooser extends JPanel {
 
                     File file = fileChooser.getSelectedFile();
                     updateAvatar(file);
+                    updateAvatarPath(file.getPath());
 
                 }
             }
