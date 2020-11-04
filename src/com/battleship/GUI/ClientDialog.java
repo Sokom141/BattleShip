@@ -1,5 +1,7 @@
 package com.battleship.GUI;
 
+import com.battleship.utils.AddressChecker;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -18,9 +20,7 @@ public class ClientDialog extends JDialog {
     private JLabel portLabel;
     private JPanel panelButtons;
 
-    private Window ref;
-
-    public ClientDialog(Window parentWindow) {
+    public ClientDialog() {
 
         setContentPane(contentPane);
         setModal(true);
@@ -42,21 +42,44 @@ public class ClientDialog extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        ref = parentWindow;
         pack();
         setVisible(true);
     }
 
     private void onOK() {
 
-        ref.ip = ipField.getText();
-        ref.port = Integer.parseInt(portField.getText());
+        String ip = ipField.getText();
 
-        dispose();
+        try {
+            int port = Integer.parseInt(portField.getText());
+
+            if (AddressChecker.isValidIPv4(ip) && AddressChecker.isValidPort(port)) {
+
+                SwingUtilities.invokeLater(() -> {
+                    GameBoard gb = new GameBoard();
+                    gb.createClient(ip, port);
+                });
+
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "IP or Port not valid.",
+                        "Address Error",
+
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException numberFormatException) {
+            JOptionPane.showMessageDialog(this,
+                    "The port must be a number",
+                    "Port Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     private void onCancel() {
 
         dispose();
     }
+
 }

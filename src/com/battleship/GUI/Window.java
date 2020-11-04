@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class Window {
 
@@ -19,9 +18,10 @@ public class Window {
     private JButton b_start_join;
     private JButton b_exit;
     private JButton b_settings;
-    private final EventHandler eventHandler = new EventHandler();
-    private final Window ref = this;
     private JLabel gameName;
+
+    private final EventHandler eventHandler = new EventHandler();
+
     protected String ip;
     protected int port;
     private NetworkConnection connection;
@@ -40,13 +40,13 @@ public class Window {
 
         JFrame frame = new JFrame("BattleShip Game");
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         b_exit.addActionListener(eventHandler);
         b_start_host.addActionListener(eventHandler);
         b_start_join.addActionListener(eventHandler);
         b_settings.addActionListener(eventHandler);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -67,24 +67,17 @@ public class Window {
                 System.exit(0);
 
             } else if (source == b_start_host) {
-                SwingUtilities.invokeLater(() -> {
-                    ServerDialog serverDialog = new ServerDialog(ref);
 
-                    GameBoard gb = new GameBoard();
-                    gb.createServer(port);
-                });
-
+                SwingUtilities.invokeLater(ServerDialog::new);
 
             } else if (source == b_start_join) {
-                SwingUtilities.invokeLater(() -> {
-                    ClientDialog clientDialog = new ClientDialog(ref);
 
-                    GameBoard gb = new GameBoard();
-                    gb.createClient(ip, port);
-                });
+                SwingUtilities.invokeLater(ClientDialog::new);
+
             } else if (source == b_settings) {
-                    new Settings();
-                }
+
+                new Settings();
             }
         }
     }
+}

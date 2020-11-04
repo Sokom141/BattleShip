@@ -26,6 +26,11 @@ class ImageChooser extends JPanel {
         super(new BorderLayout());
 
         avatarButton = userAvatarButton;
+        this.initUI();
+
+    }
+
+    private void initUI() {
 
         JFrame frame = new JFrame("Image Chooser");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -1,5 +1,7 @@
 package com.battleship.Networking;
 
+import com.battleship.utils.IpChecker;
+
 import java.io.Serializable;
 import java.util.function.Consumer;
 

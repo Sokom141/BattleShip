@@ -1,6 +1,7 @@
 package com.battleship.GUI;
 
-import com.battleship.Networking.IpChecker;
+import com.battleship.utils.AddressChecker;
+import com.battleship.utils.IpChecker;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -21,9 +22,7 @@ public class ServerDialog extends JDialog {
     private JPanel buttonsPanel;
     private JCheckBox localGameCheckBox;
 
-    private Window ref;
-
-    public ServerDialog(Window parentWindow) {
+    public ServerDialog() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -31,7 +30,6 @@ public class ServerDialog extends JDialog {
         buttonOK.addActionListener(e -> onOK());
 
         buttonCancel.addActionListener(e -> onCancel());
-
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -48,15 +46,40 @@ public class ServerDialog extends JDialog {
             publicIP.setText(IpChecker.getIp());
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Unable to check the IP. Please connect to the internet.",
+                    "Connection Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        ref = parentWindow;
+
         pack();
         setVisible(true);
     }
 
     private void onOK() {
-        ref.port = Integer.parseInt(portTextField.getText());
-        dispose();
+
+        try {
+            int port = Integer.parseInt(portTextField.getText());
+            if (AddressChecker.isValidPort(port)) {
+
+                SwingUtilities.invokeLater(() -> {
+                    GameBoard gb = new GameBoard();
+                    gb.createServer(port);
+                });
+
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Port not valid.",
+                        "Port Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException numberFormatException) {
+            JOptionPane.showMessageDialog(this,
+                    "The port must be a number",
+                    "Port Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void onCancel() {

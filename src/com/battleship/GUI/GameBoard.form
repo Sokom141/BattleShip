@@ -50,6 +50,7 @@
               <component id="6ddd4" class="javax.swing.JTextArea" binding="messages">
                 <constraints/>
                 <properties>
+                  <editable value="false"/>
                   <font name="Roboto Light"/>
                 </properties>
               </component>
