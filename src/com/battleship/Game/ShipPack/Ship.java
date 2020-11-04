@@ -98,5 +98,11 @@ public class Ship {
             tail_coordinates[1] += this.length;
         }
     }
+
+    public String toString(){
+        String str = "head: " + head_coordinates[0] + head_coordinates[1];
+        str += "\ntail: " + tail_coordinates[0] + tail_coordinates[1];
+        return str;
+    }
 }
 

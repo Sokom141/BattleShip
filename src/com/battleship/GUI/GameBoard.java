@@ -28,7 +28,6 @@ public class GameBoard {
 
         JFrame frame = new JFrame("Battleship Game");
 
-
         input.addActionListener(buttonHandler);
         this.setButtons();
 

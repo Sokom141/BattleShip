@@ -69,9 +69,11 @@ public class Window {
             } else if (source == b_start_host) {
 
                 SwingUtilities.invokeLater(ServerDialog::new);
+
             } else if (source == b_start_join) {
 
                 SwingUtilities.invokeLater(ClientDialog::new);
+
             } else if (source == b_settings) {
 
                 new Settings();
