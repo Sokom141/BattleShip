@@ -4,9 +4,10 @@ public class Ship {
 
     private final ShipUnit[] unitList;
     private final int length;
+    private final int[] head_coordinates;
+    private final int[] tail_coordinates;
+    private final boolean orientation; //FINAL?
     public int position; //position in class Board
-    int[] head_coordinates;
-    int[] tail_coordinates;
 
     /**
      * Constructor for a generic ship.
@@ -21,8 +22,23 @@ public class Ship {
         head_coordinates = new int[]{x1,y1};
         tail_coordinates = new int[]{x2,y2};
         length = (x2 - x1 == 0) ? y2 - y1 : x2 - x1;
+        orientation = x2 - x1 == 0; // true = vertical , false = horizontal
         unitList = makeUnitList(x1, y1, x2, y2);
         position = 0;
+    }
+
+    /**
+     * @return ShipTypeItem.head_coordinates
+     */
+    public int[] getHeadCoordinates() {
+        return head_coordinates;
+    }
+
+    /**
+     * @return ShipTypeItem.tail_coordinates
+     */
+    public int[] getTailCoordinates() {
+        return tail_coordinates;
     }
 
     /**
@@ -31,6 +47,7 @@ public class Ship {
      *
      * @return True if the former condition is satisfied.
      */
+
     public boolean isALive() {
 
         for (ShipUnit unit : unitList) {
@@ -40,6 +57,10 @@ public class Ship {
             }
         }
         return false;
+    }
+
+    public boolean isVertical(){
+        return orientation;
     }
 
     /**
@@ -100,8 +121,8 @@ public class Ship {
     }
 
     public String toString(){
-        String str = "head: " + head_coordinates[0] + head_coordinates[1];
-        str += "\ntail: " + tail_coordinates[0] + tail_coordinates[1];
+        String str = "head: x=" + head_coordinates[0] +" y="+ head_coordinates[1];
+        str += "\ntail: x=" + tail_coordinates[0] +" y="+ tail_coordinates[1];
         return str;
     }
 }

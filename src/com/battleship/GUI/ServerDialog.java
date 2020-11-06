@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
+
 
 public class ServerDialog extends JDialog {
 
@@ -62,9 +64,11 @@ public class ServerDialog extends JDialog {
             int port = Integer.parseInt(portTextField.getText());
             if (AddressChecker.isValidPort(port)) {
 
+
                 SwingUtilities.invokeLater(() -> {
-                    GameBoard gb = new GameBoard();
-                    gb.createServer(port);
+
+                    ShipPlanner sp = new ShipPlanner();
+                    sp.createServer(port);
                 });
 
                 dispose();
@@ -79,6 +83,7 @@ public class ServerDialog extends JDialog {
                     "The port must be a number",
                     "Port Error",
                     JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
