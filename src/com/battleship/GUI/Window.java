@@ -1,6 +1,8 @@
 package com.battleship.GUI;
 
+import com.battleship.Game.PlayerPack.Player;
 import com.battleship.Networking.NetworkConnection;
+import com.battleship.utils.BSConfigFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,7 @@ public class Window {
      *
      */
     private static final long serialVersionUID = 4453499308378636423L;
+    private JFrame frame;
     private JPanel panel;
     private JButton b_start_host;
     private JButton b_start_join;
@@ -38,7 +41,7 @@ public class Window {
      */
     private void initUI() {
 
-        JFrame frame = new JFrame("BattleShip Game");
+        frame = new JFrame("BattleShip Game");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -51,6 +54,13 @@ public class Window {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        this.initPlayer();
+    }
+
+    private void initPlayer() {
+        Player.setName(BSConfigFile.readProperties("Name"));
+        Player.setAvatar(BSConfigFile.readProperties("Avatar_Path"));
     }
 
     /**
@@ -69,14 +79,18 @@ public class Window {
             } else if (source == b_start_host) {
 
                 SwingUtilities.invokeLater(ServerDialog::new);
+                Player.setHost(true);
+                frame.dispose();
 
             } else if (source == b_start_join) {
 
                 SwingUtilities.invokeLater(ClientDialog::new);
+                frame.dispose();
 
             } else if (source == b_settings) {
 
-                new Settings();
+                SwingUtilities.invokeLater(Settings::new);
+
             }
         }
     }

@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
 
 
 public class ServerDialog extends JDialog {
@@ -30,8 +29,8 @@ public class ServerDialog extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(e -> onOK());
-
         buttonCancel.addActionListener(e -> onCancel());
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -55,6 +54,7 @@ public class ServerDialog extends JDialog {
         }
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -64,14 +64,9 @@ public class ServerDialog extends JDialog {
             int port = Integer.parseInt(portTextField.getText());
             if (AddressChecker.isValidPort(port)) {
 
-
-                SwingUtilities.invokeLater(() -> {
-
-                    ShipPlanner sp = new ShipPlanner();
-                    sp.createServer(port);
-                });
-
+                SwingUtilities.invokeLater(() -> new ShipPlanner(true, port, null));
                 dispose();
+
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Port not valid.",

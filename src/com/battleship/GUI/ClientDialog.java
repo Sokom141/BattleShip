@@ -43,6 +43,7 @@ public class ClientDialog extends JDialog {
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -58,12 +59,7 @@ public class ClientDialog extends JDialog {
 
             if (AddressChecker.isValidIPv4(ip) && AddressChecker.isValidPort(port)) {
 
-                SwingUtilities.invokeLater(() -> {
-
-                    ShipPlanner sp = new ShipPlanner();
-                    sp.createClient(ip, port);
-
-                });
+                SwingUtilities.invokeLater(() -> new ShipPlanner(false, port, ip));
 
                 dispose();
             } else {

@@ -2,9 +2,6 @@ package com.battleship.GUI;
 
 import com.battleship.Game.BoardPack.Board;
 import com.battleship.Game.ShipPack.Ship;
-import com.battleship.Networking.Client;
-import com.battleship.Networking.NetworkConnection;
-import com.battleship.Networking.Server;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,18 +18,21 @@ public class ShipPlanner implements ActionListener {
     private JPanel gridPanel;
     private JPanel shipPanel;
     private JButton buttonOk;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> comboBoxShipSelector;
     private JButton buttonReset;
+    private JLabel leftClickLabelHelper;
+    private JLabel rightClickLabelHelper;
     private JTextArea messages;
-    private NetworkConnection connection;
-
     private final JButton[][] positions = new JButton[10][10];
-
     private final ButtonHandler buttonHandler = new ButtonHandler();
 
     public static final Board board = new Board();
 
-    public ShipPlanner(){
+    private boolean isServer;
+    private int port;
+    private String ip;
+
+    public ShipPlanner(boolean isServer, int port, String ip) {
 
         frame = new JFrame("Place your ships");
 
@@ -46,31 +46,10 @@ public class ShipPlanner implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-    /**
-     * Called if the Player is the server
-     */
-    public void createServer(int port) {
-        connection = new Server(data -> SwingUtilities.invokeLater(() -> messages.append(data.toString() + "\n")), port);
-        try {
-            connection.startConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * Called if the Player is the client
-     *
-     * @param ip   the IP of the server to connect
-     * @param port the port of the server to connect
-     */
-    public void createClient(String ip, int port) {
-        connection = new Client(data -> SwingUtilities.invokeLater(() -> messages.append(data.toString() + "\n")), ip, port);
-        try {
-            connection.startConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        this.isServer = isServer;
+        this.port = port;
+        this.ip = ip;
     }
 
     /**
@@ -98,69 +77,117 @@ public class ShipPlanner implements ActionListener {
         }
     }
 
-    public static void main(String[] args){
-        new ShipPlanner();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source==buttonOk) {
-            new GameBoard();
-            //board.printConfig();
+            SwingUtilities.invokeLater(() -> {
+                GameBoard gb = new GameBoard();
+                if (isServer) {
+                    gb.createServer(port);
+                } else {
+                    gb.createClient(ip, port);
+                }
+            });
             frame.dispose();
         }
         // To reset the initial config of the field. This deletes all the previously added ships
-        else if(source == buttonReset){
+        else if (source == buttonReset) {
 
             board.field.clear(); // resets hashmap
-            resetComboBox();
-            for(int i = 0; i < 10; i++){
-                for(int j = 0; j < 10; j++){
-                    positions[i][j].setBackground(Color.LIGHT_GRAY);
-                }
-            }
-            board.printConfig();
+            resetPlanner();
         }
     }
 
-    private void resetComboBox(){
-        comboBox1.removeAllItems();
-        comboBox1.addItem("4 Unit Ship");
-        comboBox1.addItem("3 Unit Ship (1)");
-        comboBox1.addItem("3 Unit Ship (2)");
-        comboBox1.addItem("2 Unit Ship (1)");
-        comboBox1.addItem("2 Unit Ship (2)");
-        comboBox1.addItem("2 Unit Ship (3)");
-        comboBox1.addItem("1 Unit Ship (1)");
-        comboBox1.addItem("1 Unit Ship (2)");
-        comboBox1.addItem("1 Unit Ship (3)");
-        comboBox1.addItem("1 Unit Ship (4)");
+    private void resetPlanner() {
+        comboBoxShipSelector.removeAllItems();
+        comboBoxShipSelector.addItem("4 Unit Ship");
+        comboBoxShipSelector.addItem("3 Unit Ship (1)");
+        comboBoxShipSelector.addItem("3 Unit Ship (2)");
+        comboBoxShipSelector.addItem("2 Unit Ship (1)");
+        comboBoxShipSelector.addItem("2 Unit Ship (2)");
+        comboBoxShipSelector.addItem("2 Unit Ship (3)");
+        comboBoxShipSelector.addItem("1 Unit Ship (1)");
+        comboBoxShipSelector.addItem("1 Unit Ship (2)");
+        comboBoxShipSelector.addItem("1 Unit Ship (3)");
+        comboBoxShipSelector.addItem("1 Unit Ship (4)");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                positions[i][j].setEnabled(true);
+                positions[i][j].setBackground(Color.LIGHT_GRAY);
+            }
+        }
+        buttonOk.setEnabled(false);
     }
+
     private class ButtonHandler implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             Object source = e.getSource();
 
+            // TODO: refactor
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     if (source == positions[i][j]) {
 
-                        int k = Integer.parseInt(((String) Objects.requireNonNull(comboBox1.getSelectedItem())).substring(0, 1));
+                        int comboBoxItemCount = comboBoxShipSelector.getItemCount();
 
-                        if (SwingUtilities.isRightMouseButton(e)) {
-                            for (int l = j; l < j + k; l++) {
-                                positions[i][l].setBackground(Color.BLUE);
+                        if (comboBoxItemCount > 0) {
+
+                            int shipLen = Integer.parseInt(((String) Objects.requireNonNull(comboBoxShipSelector.getSelectedItem())).substring(0, 1));
+
+                            if (SwingUtilities.isRightMouseButton(e)) {
+                                if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
+                                    for (int l = j; l < j + shipLen; l++) {
+                                        this.disableSurrounding(i, l);
+                                        positions[i][l].setBackground(Color.BLUE);
+                                    }
+                                    board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
+                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
+                                }
+                            } else {
+                                if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
+                                    for (int l = i; l < i + shipLen; l++) {
+                                        this.disableSurrounding(l, j);
+                                        positions[l][j].setBackground(Color.BLUE);
+                                    }
+                                    board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
+                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
+                                }
                             }
-                            board.addShip(new Ship(i, j, i, j+k), (String) comboBox1.getSelectedItem());
-                        } else {
-                            for (int l = i; l < i + k; l++) {
-                                positions[l][j].setBackground(Color.BLUE);
+                            if (comboBoxItemCount == 1) {
+                                buttonOk.setEnabled(true);
                             }
-                            board.addShip(new Ship(i, j, i+k, j), (String) comboBox1.getSelectedItem());
                         }
-                        comboBox1.removeItem(comboBox1.getSelectedItem());
+                    }
+                }
+            }
+        }
+
+        /**
+         * Checks if the selected position is valid for placing a ship
+         *
+         * @param xHead the x head coordinate
+         * @param yHead the y head coordinate
+         * @param xTail the x tail coordinate
+         * @param yTail the y tail coordinate
+         * @return true if the position is valid, false otherwise
+         */
+        private boolean isValidPosition(int xHead, int yHead, int xTail, int yTail) {
+            return positions[xHead][yHead].isEnabled() && positions[xTail][yTail].isEnabled();
+        }
+
+        private void disableSurrounding(int x, int y) {
+            for (int i = x - 1; i <= x + 1; i++) {
+                for (int j = y - 1; j <= y + 1; j++) {
+                    try {
+                        positions[i][j].setEnabled(false);
+                        if (i != x && j != y) { // Not working properly
+                            positions[i][j].setBackground(new Color(175, 175, 175));
+                        }
+                    } catch (IndexOutOfBoundsException ex) {
+                        // Nothing to do but maybe there is another way to do this
                     }
                 }
             }
