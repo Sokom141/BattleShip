@@ -56,36 +56,35 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children>
-              <component id="4a79d" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
-                <constraints/>
-                <properties>
-                  <model>
-                    <item value="4 unit ship"/>
-                    <item value="3 unit ship (1)"/>
-                    <item value="3 unit ship (2)"/>
-                    <item value="2 unit ship (1)"/>
-                    <item value="2 unit ship (2)"/>
-                    <item value="2 unit ship (3)"/>
-                    <item value="1 unit ship (1)"/>
-                    <item value="1 unit ship (2)"/>
-                    <item value="1 unit ship (3)"/>
-                    <item value="1 unit ship (4)"/>
-                  </model>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </scrollpane>
-          <vspacer id="82902">
+          <component id="4a79d" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
-          </vspacer>
-          <vspacer id="a3d0e">
+            <properties>
+              <model>
+                <item value="4 unit ship"/>
+                <item value="3 unit ship (1)"/>
+                <item value="3 unit ship (2)"/>
+                <item value="2 unit ship (1)"/>
+                <item value="2 unit ship (2)"/>
+                <item value="2 unit ship (3)"/>
+                <item value="1 unit ship (1)"/>
+                <item value="1 unit ship (2)"/>
+                <item value="1 unit ship (3)"/>
+                <item value="1 unit ship (4)"/>
+              </model>
+            </properties>
+          </component>
+          <component id="4a86c" class="javax.swing.JButton" binding="buttonReset">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-          </vspacer>
+            <properties>
+              <text value="Reset"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

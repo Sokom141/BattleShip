@@ -46,6 +46,9 @@ public class ClientDialog extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * starts the ship configuration by clicking the OK button
+     */
     private void onOK() {
 
         String ip = ipField.getText();
@@ -56,8 +59,10 @@ public class ClientDialog extends JDialog {
             if (AddressChecker.isValidIPv4(ip) && AddressChecker.isValidPort(port)) {
 
                 SwingUtilities.invokeLater(() -> {
-                    GameBoard gb = new GameBoard();
-                    gb.createClient(ip, port);
+
+                    ShipPlanner sp = new ShipPlanner();
+                    sp.createClient(ip, port);
+
                 });
 
                 dispose();

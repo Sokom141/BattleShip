@@ -5,10 +5,10 @@ import com.battleship.Game.ShipPack.Ship;
 import java.util.HashMap;
 
 public class Board {
-
+ //TODO:  delete unnecessary comments
     //private Ship[] field;
     //private int shipsOnField = 0;
-    private HashMap<String, Ship> field = new HashMap<>(10);
+    public HashMap<String, Ship> field = new HashMap<>(10);
 
     /**
      * Constructor of Board
@@ -45,13 +45,16 @@ public class Board {
 
     /**
      * Rotate a ship already placed on the board
-     * @param key
      */
+    /*
     public void rotateShipOnBoard(String key) {
         Ship shipToRotate = field.get(key);
         shipToRotate.rotateShip();
     }
-
+    */
+    /**
+     * for tests
+     */
     public void printConfig(){
         for(Ship i : field.values())
             System.out.println(i);
