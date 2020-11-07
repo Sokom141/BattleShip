@@ -1,5 +1,5 @@
 # BattleShip
-A simple battleship game written in Java
+A simple battleship game written in Java with a Graphical User Interface and optional online playing.
 
 ## Table of Contents
 * [Technologies](#technologies)
@@ -19,7 +19,7 @@ This projects was initially built using:
 + Easily configure your player settings and distinguish yourself with a username and an avatar
 + Self-host your game and play with a friend* 
 
-*_When hosting the game you may be required to open the port or modify the firewall to play on the Internet_
+*_When hosting the game you may be required to open the port or modify the firewall to play over the Internet_
 
 ## Status
 
