@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public abstract class NetworkConnection {
@@ -25,8 +24,6 @@ public abstract class NetworkConnection {
 
     /**
      * Starts the connection
-     *
-     * @throws Exception connection failed
      */
     public void startConnection() {
 
@@ -52,15 +49,6 @@ public abstract class NetworkConnection {
     public void closeConnection() throws Exception {
 
         connectionThread.socket.close();
-    }
-
-    /**
-     * Checks if the socket is connected
-     *
-     * @return true if the socket is connected
-     */
-    public boolean isConnected() {
-        return connectionThread.socket.isConnected();
     }
 
     /**
@@ -90,7 +78,7 @@ public abstract class NetworkConnection {
         public void run() {
 
             try (ServerSocket server = isServer() ? new ServerSocket(getPort()) : null;
-                 Socket socket = isServer() ? Objects.requireNonNull(server).accept() : new Socket(getIP(), getPort());
+                 Socket socket = isServer() ? server.accept() : new Socket(getIP(), getPort());
                  ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                  ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 

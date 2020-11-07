@@ -28,9 +28,9 @@ public class ShipPlanner implements ActionListener {
 
     public static final Board board = new Board();
 
-    private boolean isServer;
-    private int port;
-    private String ip;
+    private final boolean isServer;
+    private final int port;
+    private final String ip;
 
     public ShipPlanner(boolean isServer, int port, String ip) {
 

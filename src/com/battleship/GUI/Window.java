@@ -80,12 +80,10 @@ public class Window {
 
                 SwingUtilities.invokeLater(ServerDialog::new);
                 Player.setHost(true);
-                frame.dispose();
 
             } else if (source == b_start_join) {
 
                 SwingUtilities.invokeLater(ClientDialog::new);
-                frame.dispose();
 
             } else if (source == b_settings) {
 
