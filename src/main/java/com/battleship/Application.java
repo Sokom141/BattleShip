@@ -1,6 +1,6 @@
 package com.battleship;
 
-import com.battleship.GUI.Window;
+import com.battleship.gui.Window;
 
 import java.awt.*;
 

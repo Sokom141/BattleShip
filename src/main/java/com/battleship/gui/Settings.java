@@ -1,4 +1,4 @@
-package com.battleship.GUI;
+package com.battleship.gui;
 
 import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;

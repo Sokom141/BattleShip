@@ -1,4 +1,4 @@
-package com.battleship.Game.PlayerPack;
+package com.battleship.game.playerpack;
 
 import javax.swing.*;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.battleship.Networking;
+package com.battleship.networking;
 
 import java.io.Serializable;
 import java.util.function.Consumer;

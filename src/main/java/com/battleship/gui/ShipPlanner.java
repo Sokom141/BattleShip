@@ -1,7 +1,7 @@
-package com.battleship.GUI;
+package com.battleship.gui;
 
-import com.battleship.Game.BoardPack.Board;
-import com.battleship.Game.ShipPack.Ship;
+import com.battleship.game.boardpack.Board;
+import com.battleship.game.shippack.Ship;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;

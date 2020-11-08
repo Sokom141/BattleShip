@@ -1,4 +1,4 @@
-package com.battleship.Networking;
+package com.battleship.networking;
 
 import com.battleship.utils.IpChecker;
 

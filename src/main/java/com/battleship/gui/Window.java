@@ -1,7 +1,7 @@
-package com.battleship.GUI;
+package com.battleship.gui;
 
-import com.battleship.Game.PlayerPack.Player;
-import com.battleship.Networking.NetworkConnection;
+import com.battleship.game.playerpack.Player;
+import com.battleship.networking.NetworkConnection;
 import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;

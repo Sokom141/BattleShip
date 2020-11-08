@@ -1,4 +1,4 @@
-package com.battleship.GUI;
+package com.battleship.gui;
 
 import com.battleship.utils.AddressChecker;
 import com.battleship.utils.IpChecker;

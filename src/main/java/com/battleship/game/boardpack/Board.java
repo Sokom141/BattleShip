@@ -1,6 +1,6 @@
-package com.battleship.Game.BoardPack;
+package com.battleship.game.boardpack;
 
-import com.battleship.Game.ShipPack.Ship;
+import com.battleship.game.shippack.Ship;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package com.battleship.Networking;
+package com.battleship.networking;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
