@@ -9,7 +9,7 @@ A simple battleship game written in Java with a Graphical User Interface and opt
 
 ## Technologies
 
-This projects was initially built using:
+This project was initially built using:
 + JDK 15
 + JUnit 5 for testing
 + IntelliJ form creator for .form files ( GUI components )
@@ -23,7 +23,7 @@ This projects was initially built using:
 
 ## Status
 
-This projects is currently in early development
+This project is currently in early development
 
 ## Contributing
 
