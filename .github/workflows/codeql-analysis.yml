@@ -69,7 +69,7 @@ jobs:
 
     - run: |
         sudo apt-get install xorg openbox 
-        javac -d . -cp src src/com/battleship/Application.java
+        javac -d . -cp src src/main/java/com/battleship/Application.java
         java com.battleship.Application
     # export DISPLAY=:0
       
