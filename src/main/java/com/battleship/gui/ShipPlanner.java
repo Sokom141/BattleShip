@@ -236,6 +236,12 @@ public class ShipPlanner implements ActionListener {
             }
         }
 
+        /**
+         * create an area of disabled gray JButton and then place the ship above with the preferred color
+         * @param i x-axis coordinate of the interested point
+         * @param j y-axis coordinate of the interested point
+         * @param shipLen length of the vertical ship
+         */
         private void verticalShipsSurroundingArea(int i, int j, int shipLen) {
             if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
 
@@ -243,19 +249,25 @@ public class ShipPlanner implements ActionListener {
                     this.disableSurrounding(i, l);
                 }
                 for (int l = j; l < j + shipLen; l++) {
-                    positions[i][l].setBackground(shipColor); // sets the ships color to Color.BLUE
+                    positions[i][l].setBackground(shipColor); // sets the ships color to shipColor
                 }
                 board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
                 comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
             }
         }
 
+        /**
+         * create an area of disabled gray JButton and then place the ship above with the preferred color
+         * @param i x-axis coordinate of the interested point
+         * @param j y-axis coordinate of the interested point
+         * @param shipLen length of the horizontal ship
+         */
         private void horizontalShipsSurroundingArea(int i, int j, int shipLen) {
             if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
                 for (int l = i; l < i + shipLen; l++) { // disables the surrounding ship area
                     this.disableSurrounding(l, j);
                 }
-                for (int l = i; l < i + shipLen; l++) { // sets the ships color to Color.BLUE
+                for (int l = i; l < i + shipLen; l++) { // sets the ships color to shipColor
                     positions[l][j].setBackground(shipColor);
                 }
                 board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
@@ -276,6 +288,11 @@ public class ShipPlanner implements ActionListener {
             return positions[xHead][yHead].isEnabled() && positions[xTail][yTail].isEnabled();
         }
 
+        /**
+         * given a point disable all the surrounding area
+         * @param x x-axis coordinate of the point
+         * @param y y-axis coordinate of the point
+         */
         private void disableSurrounding(int x, int y) {
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int j = y - 1; j <= y + 1; j++) {
