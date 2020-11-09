@@ -21,7 +21,7 @@ public class BSConfigFile {
         Properties props = new Properties();
 
         props.setProperty("Name", "UserName");
-        props.setProperty("Avatar_Path", "src/resources/anonymous.png");
+        props.setProperty("Avatar_Path", "src/main/resources/anonymous.png");
         props.setProperty("Resolution_Width", "1000");
         props.setProperty("Resolution_Height", "500");
         props.setProperty("Color", "BLUE");
@@ -72,7 +72,7 @@ public class BSConfigFile {
             case "GREEN" -> Color.GREEN;
             case "MAGENTA" -> Color.MAGENTA;
             case "ORANGE" -> Color.ORANGE;
-            case "BLACK" -> Color.BLACK;
+            case "BLACK" -> Color.BLACK; // this color has been removed because it's the default color for destroyed ships
             default -> Color.BLUE;
         };
     }
