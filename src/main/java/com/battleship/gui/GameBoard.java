@@ -6,6 +6,7 @@ import com.battleship.game.shippack.Ship;
 import com.battleship.networking.Client;
 import com.battleship.networking.NetworkConnection;
 import com.battleship.networking.Server;
+import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
@@ -63,7 +64,7 @@ public class GameBoard {
      * Then place them on another (disabled) grid layout of buttons
      */
     private void setShipOnBoard() {
-
+        Color shipColor = BSConfigFile.manageColors(BSConfigFile.readProperties("Color"));
         for (Ship shipToPlace : ShipPlanner.board.field.values()) {
 
             int[] h_c = shipToPlace.getHeadCoordinates();
@@ -72,12 +73,12 @@ public class GameBoard {
             if (shipToPlace.isVertical()) {
 
                 for (int i = 0; i < length; i++) {
-                    playerPositions[h_c[0]][h_c[1] + i].setBackground(Color.BLUE);
+                    playerPositions[h_c[0]][h_c[1] + i].setBackground(shipColor);
                     playerPositions[h_c[0]][h_c[1] + i].setEnabled(true);
                 }
             } else {
                 for (int i = 0; i < length; i++) {
-                    playerPositions[h_c[0] + i][h_c[1]].setBackground(Color.BLUE);
+                    playerPositions[h_c[0] + i][h_c[1]].setBackground(shipColor);
                     playerPositions[h_c[0] + i][h_c[1]].setEnabled(true);
                 }
             }

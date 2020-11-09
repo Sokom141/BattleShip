@@ -2,18 +2,14 @@ package com.battleship.gui;
 
 import com.battleship.game.boardpack.Board;
 import com.battleship.game.shippack.Ship;
+import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Insets;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -40,6 +36,7 @@ public class ShipPlanner implements ActionListener {
     private final boolean isServer;
     private final int port;
     private final String ip;
+    private Color shipColor;
 
     public ShipPlanner(boolean isServer, int port, String ip) {
 
@@ -240,13 +237,14 @@ public class ShipPlanner implements ActionListener {
         }
 
         private void verticalShipsSurroundingArea(int i, int j, int shipLen) {
+            shipColor = BSConfigFile.manageColors(BSConfigFile.readProperties("Color"));
             if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
 
                 for (int l = j; l < j + shipLen; l++) { // disables the surrounding ship area
                     this.disableSurrounding(i, l);
                 }
                 for (int l = j; l < j + shipLen; l++) {
-                    positions[i][l].setBackground(Color.BLUE); // sets the ships color to Color.BLUE
+                    positions[i][l].setBackground(shipColor); // sets the ships color to Color.BLUE
                 }
                 board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
                 comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
@@ -254,12 +252,13 @@ public class ShipPlanner implements ActionListener {
         }
 
         private void horizontalShipsSurroundingArea(int i, int j, int shipLen) {
+            shipColor = BSConfigFile.manageColors(BSConfigFile.readProperties("Color"));
             if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
                 for (int l = i; l < i + shipLen; l++) { // disables the surrounding ship area
                     this.disableSurrounding(l, j);
                 }
                 for (int l = i; l < i + shipLen; l++) { // sets the ships color to Color.BLUE
-                    positions[l][j].setBackground(Color.BLUE);
+                    positions[l][j].setBackground(shipColor);
                 }
                 board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
                 comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());

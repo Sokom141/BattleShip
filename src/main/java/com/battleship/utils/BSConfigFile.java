@@ -72,7 +72,7 @@ public class BSConfigFile {
             case "GREEN" -> Color.GREEN;
             case "MAGENTA" -> Color.MAGENTA;
             case "ORANGE" -> Color.ORANGE;
-            case "BLACK" -> Color.BLACK;
+            //case "BLACK" -> Color.BLACK;
             default -> Color.BLUE;
         };
     }
