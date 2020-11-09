@@ -221,23 +221,9 @@ public class ShipPlanner implements ActionListener {
                             int shipLen = Integer.parseInt(((String) Objects.requireNonNull(comboBoxShipSelector.getSelectedItem())).substring(0, 1));
 
                             if (SwingUtilities.isRightMouseButton(e)) {
-                                if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
-                                    for (int l = j; l < j + shipLen; l++) {
-                                        this.disableSurrounding(i, l);
-                                        positions[i][l].setBackground(Color.BLUE);
-                                    }
-                                    board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
-                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
-                                }
+                                verticalShipsSurroundingArea(i, j, shipLen); //manages the surrounding area of the vertical ships
                             } else {
-                                if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
-                                    for (int l = i; l < i + shipLen; l++) {
-                                        this.disableSurrounding(l, j);
-                                        positions[l][j].setBackground(Color.BLUE);
-                                    }
-                                    board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
-                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
-                                }
+                                horizontalShipsSurroundingArea(i, j, shipLen);//manages the surrounding area of the horizontal ships
                             }
                             if (comboBoxItemCount == 1) {
                                 buttonOk.setEnabled(true);
@@ -245,6 +231,33 @@ public class ShipPlanner implements ActionListener {
                         }
                     }
                 }
+            }
+        }
+
+        private void verticalShipsSurroundingArea(int i, int j, int shipLen) {
+            if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
+
+                for (int l = j; l < j + shipLen; l++) { // disables the surrounding ship area
+                    this.disableSurrounding(i, l);
+                }
+                for (int l = j; l < j + shipLen; l++) {
+                    positions[i][l].setBackground(Color.BLUE); // sets the ships color to Color.BLUE
+                }
+                board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
+                comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
+            }
+        }
+
+        private void horizontalShipsSurroundingArea(int i, int j, int shipLen) {
+            if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
+                for (int l = i; l < i + shipLen; l++) { // disables the surrounding ship area
+                    this.disableSurrounding(l, j);
+                }
+                for (int l = i; l < i + shipLen; l++) { // sets the ships color to Color.BLUE
+                    positions[l][j].setBackground(Color.BLUE);
+                }
+                board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
+                comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
             }
         }
 
@@ -266,9 +279,9 @@ public class ShipPlanner implements ActionListener {
                 for (int j = y - 1; j <= y + 1; j++) {
                     try {
                         positions[i][j].setEnabled(false);
-                        if (i != x && j != y) { // Not working properly
-                            positions[i][j].setBackground(new Color(175, 175, 175));
-                        }
+                        //if (i != x && j != y) { // Not working properly
+                        positions[i][j].setBackground(new Color(175, 175, 175));
+                        //}
                     } catch (IndexOutOfBoundsException ex) {
                         // Nothing to do but maybe there is another way to do this
                     }
