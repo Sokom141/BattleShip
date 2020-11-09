@@ -14,10 +14,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ maven-experimental ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
+    branches: [ maven-experimental ]
   schedule:
     - cron: '38 23 * * 2'
 
