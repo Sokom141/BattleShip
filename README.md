@@ -1,4 +1,4 @@
-# BattleShip ![CodeQL](https://github.com/Sokom141/BattleShip/workflows/CodeQL/badge.svg) ![Maven](https://github.com/Sokom141/BattleShip/workflows/Java%20CI%20with%20Maven/badge.svg)
+# BattleShip ![CodeQL](https://github.com/Sokom141/BattleShip/workflows/CodeQL/badge.svg)
 A simple battleship game written in Java with a Graphical User Interface and optional online playing.
 
 ## Table of Contents
