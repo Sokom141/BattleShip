@@ -72,7 +72,7 @@ public class BSConfigFile {
             case "GREEN" -> Color.GREEN;
             case "MAGENTA" -> Color.MAGENTA;
             case "ORANGE" -> Color.ORANGE;
-            case "BLACK" -> Color.BLACK;
+            case "BLACK" -> Color.BLACK; // this color has been removed because it's the default color for destroyed ships
             default -> Color.BLUE;
         };
     }

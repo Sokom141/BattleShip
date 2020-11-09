@@ -28,7 +28,7 @@ public class Settings implements ActionListener {
     private JComboBox<String> comboSetColor;
     private JLabel labelShipColor;
 
-    final String[] colorsPalette = new String[]{"BLUE", "MAGENTA", "RED", "ORANGE", "BLACK", "GREEN"};
+    final String[] colorsPalette = new String[]{"BLUE", "MAGENTA", "RED", "ORANGE", "GREEN"};
 
     public Settings() {
         $$$setupUI$$$();

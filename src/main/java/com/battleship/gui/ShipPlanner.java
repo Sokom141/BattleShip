@@ -2,6 +2,7 @@ package com.battleship.gui;
 
 import com.battleship.game.boardpack.Board;
 import com.battleship.game.shippack.Ship;
+import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -35,6 +36,7 @@ public class ShipPlanner implements ActionListener {
     private final boolean isServer;
     private final int port;
     private final String ip;
+    private final Color shipColor = BSConfigFile.manageColors(BSConfigFile.readProperties("Color"));
 
     public ShipPlanner(boolean isServer, int port, String ip) {
 
@@ -241,7 +243,7 @@ public class ShipPlanner implements ActionListener {
                     this.disableSurrounding(i, l);
                 }
                 for (int l = j; l < j + shipLen; l++) {
-                    positions[i][l].setBackground(Color.BLUE); // sets the ships color to Color.BLUE
+                    positions[i][l].setBackground(shipColor); // sets the ships color to Color.BLUE
                 }
                 board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
                 comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
@@ -254,7 +256,7 @@ public class ShipPlanner implements ActionListener {
                     this.disableSurrounding(l, j);
                 }
                 for (int l = i; l < i + shipLen; l++) { // sets the ships color to Color.BLUE
-                    positions[l][j].setBackground(Color.BLUE);
+                    positions[l][j].setBackground(shipColor);
                 }
                 board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
                 comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
