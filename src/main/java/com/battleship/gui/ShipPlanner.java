@@ -2,7 +2,6 @@ package com.battleship.gui;
 
 import com.battleship.game.boardpack.Board;
 import com.battleship.game.shippack.Ship;
-import com.battleship.utils.BSConfigFile;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -36,7 +35,6 @@ public class ShipPlanner implements ActionListener {
     private final boolean isServer;
     private final int port;
     private final String ip;
-    private final Color shipColor = BSConfigFile.manageColors(BSConfigFile.readProperties("Color"));
 
     public ShipPlanner(boolean isServer, int port, String ip) {
 
@@ -223,9 +221,23 @@ public class ShipPlanner implements ActionListener {
                             int shipLen = Integer.parseInt(((String) Objects.requireNonNull(comboBoxShipSelector.getSelectedItem())).substring(0, 1));
 
                             if (SwingUtilities.isRightMouseButton(e)) {
-                                verticalShipsSurroundingArea(i, j, shipLen); //manages the surrounding area of the vertical ships
+                                if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
+                                    for (int l = j; l < j + shipLen; l++) {
+                                        this.disableSurrounding(i, l);
+                                        positions[i][l].setBackground(Color.BLUE);
+                                    }
+                                    board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
+                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
+                                }
                             } else {
-                                horizontalShipsSurroundingArea(i, j, shipLen);//manages the surrounding area of the horizontal ships
+                                if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
+                                    for (int l = i; l < i + shipLen; l++) {
+                                        this.disableSurrounding(l, j);
+                                        positions[l][j].setBackground(Color.BLUE);
+                                    }
+                                    board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
+                                    comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
+                                }
                             }
                             if (comboBoxItemCount == 1) {
                                 buttonOk.setEnabled(true);
@@ -233,45 +245,6 @@ public class ShipPlanner implements ActionListener {
                         }
                     }
                 }
-            }
-        }
-
-        /**
-         * create an area of disabled gray JButton and then place the ship above with the preferred color
-         * @param i x-axis coordinate of the interested point
-         * @param j y-axis coordinate of the interested point
-         * @param shipLen length of the vertical ship
-         */
-        private void verticalShipsSurroundingArea(int i, int j, int shipLen) {
-            if (j + shipLen <= 10 && isValidPosition(i, j, i, j + shipLen - 1)) {
-
-                for (int l = j; l < j + shipLen; l++) { // disables the surrounding ship area
-                    this.disableSurrounding(i, l);
-                }
-                for (int l = j; l < j + shipLen; l++) {
-                    positions[i][l].setBackground(shipColor); // sets the ships color to shipColor
-                }
-                board.addShip(new Ship(i, j, i, j + shipLen), (String) comboBoxShipSelector.getSelectedItem());
-                comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
-            }
-        }
-
-        /**
-         * create an area of disabled gray JButton and then place the ship above with the preferred color
-         * @param i x-axis coordinate of the interested point
-         * @param j y-axis coordinate of the interested point
-         * @param shipLen length of the horizontal ship
-         */
-        private void horizontalShipsSurroundingArea(int i, int j, int shipLen) {
-            if (i + shipLen <= 10 && isValidPosition(i, j, i + shipLen - 1, j)) {
-                for (int l = i; l < i + shipLen; l++) { // disables the surrounding ship area
-                    this.disableSurrounding(l, j);
-                }
-                for (int l = i; l < i + shipLen; l++) { // sets the ships color to shipColor
-                    positions[l][j].setBackground(shipColor);
-                }
-                board.addShip(new Ship(i, j, i + shipLen, j), (String) comboBoxShipSelector.getSelectedItem());
-                comboBoxShipSelector.removeItem(comboBoxShipSelector.getSelectedItem());
             }
         }
 
@@ -288,19 +261,14 @@ public class ShipPlanner implements ActionListener {
             return positions[xHead][yHead].isEnabled() && positions[xTail][yTail].isEnabled();
         }
 
-        /**
-         * given a point disable all the surrounding area
-         * @param x x-axis coordinate of the point
-         * @param y y-axis coordinate of the point
-         */
         private void disableSurrounding(int x, int y) {
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int j = y - 1; j <= y + 1; j++) {
                     try {
                         positions[i][j].setEnabled(false);
-                        //if (i != x && j != y) { // Not working properly
-                        positions[i][j].setBackground(new Color(175, 175, 175));
-                        //}
+                        if (i != x && j != y) { // Not working properly
+                            positions[i][j].setBackground(new Color(175, 175, 175));
+                        }
                     } catch (IndexOutOfBoundsException ex) {
                         // Nothing to do but maybe there is another way to do this
                     }
