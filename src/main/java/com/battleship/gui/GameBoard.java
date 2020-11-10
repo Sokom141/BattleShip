@@ -40,6 +40,8 @@ public class GameBoard {
     private JLabel enemyFieldLabel;
     private boolean isUserDataSet = false;
     private boolean isUserTurn = Player.isHost();
+    private int resolutionWidth = Integer.parseInt(BSConfigFile.readProperties("Resolution_Width"));
+    private int resolutionHeight = Integer.parseInt(BSConfigFile.readProperties("Resolution_Height"));
 
     public GameBoard() {
         frame = new JFrame("Battleship Game");
@@ -52,7 +54,7 @@ public class GameBoard {
         this.setUserElements();
 
         frame.add(mainPanel, BorderLayout.CENTER);
-        frame.setSize(1000, 800); //TODO: set a good size for the game.
+        frame.setSize(resolutionWidth, resolutionHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
