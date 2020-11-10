@@ -54,7 +54,7 @@ public class GameBoard {
         this.setUserElements();
 
         frame.add(mainPanel, BorderLayout.CENTER);
-        frame.setSize(new Dimension(resolutionWidth, resolutionHeight)); 
+        frame.setSize(new Dimension(resolutionWidth, resolutionHeight));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
