@@ -25,10 +25,10 @@ public class Settings implements ActionListener {
     private JLabel labelImage;
     private JLabel labelWRes;
     private JLabel labelHRes;
+    private JComboBox<String> comboSetColor;
+    private JLabel labelShipColor;
 
-
-    private JComboBox<String> bSetColors;
-    final String[] colorsPalette = new String[]{"BLUE", "MAGENTA", "RED", "ORANGE", "BLACK", "GREEN"};
+    final String[] colorsPalette = new String[]{"BLUE", "MAGENTA", "RED", "ORANGE", "GREEN"};
 
     public Settings() {
         $$$setupUI$$$();
@@ -64,7 +64,7 @@ public class Settings implements ActionListener {
             SwingUtilities.invokeLater(() -> new ImageChooser(avatar_button));
         } else if (source == bSave) {
             String newName = tfNick.getText();
-            String setColor = (String) bSetColors.getSelectedItem();
+            String setColor = (String) comboSetColor.getSelectedItem();
             String resolutionWidth = tfWidth.getText();
             String resolutionHeight = tfHeight.getText();
             BSConfigFile.updateConfiguration(newName, setColor, resolutionWidth, resolutionHeight);
@@ -78,8 +78,8 @@ public class Settings implements ActionListener {
 
         tfNick = new JTextField(BSConfigFile.readProperties("Name"));
         avatar_button = new JButton(loadImage(BSConfigFile.readProperties("Avatar_Path")));
-        bSetColors = new JComboBox<>(colorsPalette);
-        bSetColors.setSelectedItem(BSConfigFile.readProperties("Color"));
+        comboSetColor = new JComboBox<>(colorsPalette);
+        comboSetColor.setSelectedItem(BSConfigFile.readProperties("Color"));
         tfWidth = new JTextField(BSConfigFile.readProperties("Resolution_Width"));
         tfHeight = new JTextField(BSConfigFile.readProperties("Resolution_Height"));
     }
@@ -94,22 +94,22 @@ public class Settings implements ActionListener {
     private void $$$setupUI$$$() {
         createUIComponents();
         panel = new JPanel();
-        panel.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setLayout(new GridLayoutManager(7, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         tfNick.setHorizontalAlignment(0);
         panel.add(tfNick, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         tfWidth.setHorizontalAlignment(0);
-        panel.add(tfWidth, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(tfWidth, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         tfHeight.setHorizontalAlignment(0);
-        panel.add(tfHeight, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(tfHeight, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         avatar_button.setText("");
         panel.add(avatar_button, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         bExit = new JButton();
         bExit.setText("Exit");
-        panel.add(bExit, new GridConstraints(5, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(bExit, new GridConstraints(6, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         bSave = new JButton();
         bSave.setText("Save");
-        panel.add(bSave, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(bSave, new GridConstraints(5, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         labelUserName = new JLabel();
         labelUserName.setText("UserName");
         panel.add(labelUserName, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -118,11 +118,16 @@ public class Settings implements ActionListener {
         panel.add(labelImage, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         labelWRes = new JLabel();
         labelWRes.setText("Resolution Width");
-        panel.add(labelWRes, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(labelWRes, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         labelHRes = new JLabel();
         labelHRes.setHorizontalTextPosition(0);
         labelHRes.setText("Resolution Height");
-        panel.add(labelHRes, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(labelHRes, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(comboSetColor, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        labelShipColor = new JLabel();
+        labelShipColor.setText("Ship Color");
+        panel.add(labelShipColor, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        labelShipColor.setLabelFor(comboSetColor);
     }
 
     /**
@@ -131,4 +136,5 @@ public class Settings implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }
