@@ -16,8 +16,8 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="server.png"/>
-          <text value="Host Game"/>
+          <icon value="images/server.png"/>
+          <text value="&amp;Host Game"/>
           <toolTipText value="Host a game"/>
         </properties>
       </component>
@@ -26,8 +26,8 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="link.png"/>
-          <text value="Join Game"/>
+          <icon value="images/link.png"/>
+          <text value="&amp;Join Game"/>
           <toolTipText value="Join a game"/>
         </properties>
       </component>
@@ -36,8 +36,8 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="settings.png"/>
-          <text value="Settings"/>
+          <icon value="images/settings.png"/>
+          <text value="&amp;Settings"/>
           <toolTipText value="Open the settings"/>
         </properties>
       </component>
@@ -46,8 +46,8 @@
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="logout.png"/>
-          <text value="Exit"/>
+          <icon value="images/logout.png"/>
+          <text value="&amp;Exit"/>
           <toolTipText value="Exit the application"/>
         </properties>
       </component>
@@ -66,8 +66,8 @@
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <icon value="ship.png"/>
-          <text value="BattleShip game v.0.0.1"/>
+          <icon value="images/ship.png"/>
+          <text value="BattleShip game"/>
         </properties>
       </component>
     </children>
