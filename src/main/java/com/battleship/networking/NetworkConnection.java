@@ -93,7 +93,7 @@ public abstract class NetworkConnection {
                     ServerSocket server = isServer() ? new ServerSocket(getPort()) : null;
                     Socket socket = isServer() ? server.accept() : createClient(getIP(), getPort(), 1000); // TODO: implement maxRetry
                     ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                    ObjectInputStream in = new LookAheadObjectInputStream(socket.getInputStream())
+                    LookAheadObjectInputStream in = new LookAheadObjectInputStream(socket.getInputStream())
             ) {
 
                 this.socket = socket;
