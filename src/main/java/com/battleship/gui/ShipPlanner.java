@@ -214,7 +214,7 @@ public class ShipPlanner implements ActionListener {
             // TODO: refactor
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    if (source == positions[i][j] && isValidPosition(i, y, i, y)) {
+                    if (source == positions[i][j] && isValidPosition(i, j, i, j)) {
 
                         int comboBoxItemCount = comboBoxShipSelector.getItemCount();
 
