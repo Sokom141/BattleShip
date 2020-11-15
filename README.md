@@ -1,4 +1,10 @@
-# BattleShip ![CodeQL](https://github.com/Sokom141/BattleShip/workflows/CodeQL/badge.svg)
+# BattleShip 
+![CodeQL](https://github.com/Sokom141/BattleShip/workflows/CodeQL/badge.svg) 
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Sokom141/Battleship)
+[![star this repo](https://githubbadges.com/star.svg?user=Sokom141&repo=BattleShip&style=default)](https://github.com/Sokom141/BattleShip)
+[![fork this repo](https://githubbadges.com/fork.svg?user=Sokom141&repo=BattleShip&style=default)](https://github.com/Sokom141/BattleShip/fork)
+![GitHub](https://img.shields.io/github/license/Sokom141/BattleShip)
+
 A simple battleship game written in Java with a Graphical User Interface and optional online playing.
 
 ## Table of Contents
