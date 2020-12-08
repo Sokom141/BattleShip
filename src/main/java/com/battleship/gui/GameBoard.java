@@ -211,6 +211,8 @@ public class GameBoard {
                 enemyPositions[posToAttack[1]][posToAttack[2]].setBackground(Color.RED);
                 setPlayerTurn(true);
             } else if (posToAttack[0] == GAME_WON) {
+                //Player has won, set the position to be red and display victory message
+                enemyPositions[posToAttack[1]][posToAttack[2]].setBackground(Color.RED);
                 JOptionPane.showMessageDialog(frame,
                         "You won!",
                         "Congratulations",
